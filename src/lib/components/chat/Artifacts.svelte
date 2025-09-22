@@ -324,18 +324,16 @@
 				{#if contents.length > 0}
 					<div class="max-w-full w-full h-full">
 						{#if contents[selectedContentIdx].type === 'iframe'}
-							<iframe
-								bind:this={iframeElement}
-								title="Content"
-								srcdoc={contents[selectedContentIdx].content}
-								class="w-full border-0 h-full rounded-none"
-								sandbox="allow-scripts allow-downloads{($settings?.iframeSandboxAllowForms ?? false)
-									? ' allow-forms'
-									: ''}{($settings?.iframeSandboxAllowSameOrigin ?? false)
-									? ' allow-same-origin'
-									: ''}"
-								on:load={iframeLoadHandler}
-							></iframe>
+              <iframe
+                bind:this={iframeElement}
+                title="Content"
+                srcdoc={contents[selectedContentIdx].content}
+                class="w-full border-0 h-full rounded-none"
+                sandbox={`allow-scripts allow-downloads${
+                  ($settings?.iframeSandboxAllowForms ?? false) ? ' allow-forms' : ''
+                } allow-same-origin`}
+                on:load={iframeLoadHandler}
+              />
 						{:else if contents[selectedContentIdx].type === 'svg'}
 							<SvgPanZoom
 								className=" w-full h-full max-h-full overflow-hidden"
